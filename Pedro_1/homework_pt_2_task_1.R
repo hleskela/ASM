@@ -27,3 +27,15 @@ for (i in seq_along(Yr)) {
   index = which(x == Yr[i])
   z[i] <- log((lgWeight[i]-y[index])**2)
 }
+
+# Step c), calculate the log(variance) estimate
+q <- supsmu(Yr,z)
+
+# Step d), calculate sigma squared
+unlistedSigmaEstimate <- unlist(q[2])
+sigmaSquared <- 0
+for (j in seq_along(unlistedSigmaEstimate)) {
+  sigmaSquared[j] <- exp(unlistedSigmaEstimate[j])
+}
+
+# Calculating the estimated square error, e^(z(x)-q(x)) = E^2
