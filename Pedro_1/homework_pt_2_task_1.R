@@ -51,4 +51,11 @@ for (k in seq_along(Yr)) {
 # Plotting the error squared againt the manufacturing year
 plot(Yr,e)
 # Superimposing the estimated variance
-lines(unique(Yr),sigmaSquared, col='red')
+unique_years <- unique(Yr)
+lines(unique_years,sigmaSquared, col='red')
+
+# Plotting the regression line with 95 % confidence interval
+plot(m, ylim=c(0.0, 15))
+lines(unique_years, unlist(m[2])+(1.96*sigmaSquared),col='blue')
+lines(unique_years, unlist(m[2])-(1.96*sigmaSquared), col='red')
+#lines(m, col='green')
