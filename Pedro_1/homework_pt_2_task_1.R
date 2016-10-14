@@ -12,14 +12,14 @@ lgRange <- log(Range)
 plot(Yr,lgWeight)
 
 #Loess.smooth produces continuous values instead of the discrete ones we can use for years
-#regressionData = loess.smooth(Yr, lgWeight)
+#m = loess.smooth(Yr, lgWeight)
 
 # Step a)
-regressionData = supsmu(Yr,lgWeight)
-lines(regressionData, col="red")
+m = supsmu(Yr,lgWeight)
+lines(m, col="red")
 
-x <- unlist(regressionData[1])
-y <- unlist(regressionData[2])
+x <- unlist(m[1])
+y <- unlist(m[2])
 
 # Step b)
 z <- 0
@@ -39,3 +39,16 @@ for (j in seq_along(unlistedSigmaEstimate)) {
 }
 
 # Calculating the estimated square error, e^(z(x)-q(x)) = E^2
+e <- 0
+qX <- unlist(q[1])
+qY <- unlistedSigmaEstimate
+for (k in seq_along(Yr)) {
+  index = which(qX == Yr[k])
+  #e[i] <- log((lgWeight[i]-y[index])**2)
+  e[k] <- exp(z[k] - qY[index])
+}
+
+# Plotting the error squared againt the manufacturing year
+plot(Yr,e)
+# Superimposing the estimated variance
+lines(unique(Yr),sigmaSquared, col='red')
