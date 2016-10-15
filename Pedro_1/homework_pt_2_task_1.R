@@ -9,9 +9,9 @@ lgSpeed <- log(Speed)
 lgRange <- log(Range)
 
 # Plots the log(weight) of an airplane as a resultant of model year, Yr
-plot(Yr,lgWeight)
+plot(Yr,lgWeight, main="Plot 1", sub="The log of the weights of planes vs the manufacturing year")
 
-#Loess.smooth produces continuous values instead of the discrete ones we can use for years
+# Loess.smooth produces continuous values instead of the discrete ones we can use for years
 #m = loess.smooth(Yr, lgWeight)
 
 # Step a)
@@ -49,13 +49,15 @@ for (k in seq_along(Yr)) {
 }
 
 # Plotting the error squared againt the manufacturing year
-plot(Yr,e)
+plot(Yr,e,main="Plot 2", sub="The error squared of the model vs manufacturing year")
 # Superimposing the estimated variance
 unique_years <- unique(Yr)
 lines(unique_years,sigmaSquared, col='red')
+legend(x="topright", inset=.05, cex = 1, c("Variance"), lty=c(1,1), lwd=c(2,2), col=c("red"), bg="grey96")
 
 # Plotting the regression line with 95 % confidence interval
-plot(m, ylim=c(0.0, 15))
-lines(unique_years, unlist(m[2])+(1.96*sigmaSquared),col='blue')
-lines(unique_years, unlist(m[2])-(1.96*sigmaSquared), col='red')
-#lines(m, col='green')
+plot(Yr, lgWeight,xlab="Yr", ylab="lgWeight",main="Plot 3", sub="The regression line with a 95% confidence interval")
+lines(unique_years, unlist(m[2])+(1.96*sigmaSquared),col='blue',lwd=2)
+lines(unique_years, unlist(m[2])-(1.96*sigmaSquared), col='red',lwd=2)
+lines(m, col='green',lwd=2)
+legend(x=12,y=13, inset=.05, cex = 1, c("Lower 5%","Model","Upper 5%"), lty=c(1,1), lwd=c(2,2), col=c("red","green","blue"), bg="grey96")
