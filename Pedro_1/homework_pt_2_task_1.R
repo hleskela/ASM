@@ -64,4 +64,6 @@ lines(m, col='green',lwd=2)
 legend(x=12,y=13, inset=.05, cex = 1, c("Lower 5%","Model","Upper 5%"), lty=c(1,1), lwd=c(2,2), col=c("red","green","blue"), bg="grey96")
 
 # Hannes own test of heteroscedacity
-plot(Yr,z)
+# This should preferably be done with a linear model, so commented for now
+#plot(Yr,z)
+#lines(q, col="red", lwd=2)
