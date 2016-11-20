@@ -1,5 +1,6 @@
 # One way anova for the fat
 #setwd("~/Documents/UPC/ASM/Marta_2")
+require(ggplot2)
 dat = read.csv("Fat.csv")
 
 # Four groups with their respective blood fat values. Does the mean differ? Let's do ANOVA to find out!
